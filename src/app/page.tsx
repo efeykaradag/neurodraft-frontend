@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Lock, User, XCircle, PlayCircle } from "lucide-react";
@@ -62,7 +62,7 @@ export default function LandingPage() {
     };
 
     // --- Register Akışı ---
-    const handleRegister = async (e: any) => {
+    const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true); setError(""); setMsg("");
         if (regPass.length < 8) {
@@ -91,7 +91,7 @@ export default function LandingPage() {
         }
     };
 
-    const handleVerify = async (e: any) => {
+    const handleVerify = async (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true); setError(""); setMsg("");
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/verify-email`, {
@@ -105,7 +105,7 @@ export default function LandingPage() {
         setLoading(false);
         if (res.ok) {
             setMsg("E-posta doğrulandı! Şimdi giriş yapabilirsiniz.");
-            setTab("/login");
+            setTab("login");
         } else {
             const d = await res.json();
             setError(d.detail || "Kod hatalı veya süresi geçti!");
@@ -132,7 +132,7 @@ export default function LandingPage() {
     };
 
     // --- Login ---
-    const handleLogin = async (e: any) => {
+    const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true); setError(""); setMsg("");
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
@@ -153,7 +153,7 @@ export default function LandingPage() {
     };
 
     // --- Şifremi Unuttum ---
-    const handleForgot = async (e: any) => {
+    const handleForgot = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true); setError(""); setMsg("");
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/forgot-password`, {
@@ -170,7 +170,7 @@ export default function LandingPage() {
         }
     };
 
-    const handleReset = async (e: any) => {
+    const handleReset = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true); setError(""); setMsg("");
         if (resetNewPass.length < 8) {

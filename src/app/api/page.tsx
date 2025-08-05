@@ -6,10 +6,45 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
-import { jwtDecode } from "jwt-decode";
+
+export interface AIBoxProps {
+    title: string;
+    desc: string;
+    color: string;
+    icon: React.ReactNode;
+    cta: string;
+    badge?: string;
+}
+
+export interface Folder {
+    id: number;
+    name: string;
+    user_id: number;
+    notes?: Note[];
+    files?: FileModel[];
+}
+
+export interface Note {
+    id: number;
+    title: string;
+    content: string;
+    created_at: string;
+    folder_id: number;
+}
+
+export interface FileModel {
+    id: number;
+    folder_id: number;
+    user_id: number;
+    filename: string;
+    filepath: string;
+    filetype: string;
+    uploaded_at: string;
+    extracted_text: string
+}
 
 // --- API HELPER ---
-async function apiFetch(url: string, options: any = {}) {
+async function apiFetch(url: string, options: RequestInit = {} = {}) {
     return fetch(url, {
         ...options,
         credentials: "include", // Cookie otomatik gitsin!
@@ -21,7 +56,7 @@ async function apiFetch(url: string, options: any = {}) {
 }
 
 // --- AI BOX COMPONENT ---
-function AIBox({ title, desc, color, icon, cta, badge }: any) {
+function AIBox({ title, desc, color, icon, cta, badge }: AIBoxProps) {
     return (
         <motion.div
             whileHover={{ scale: 1.025, y: -2, boxShadow: "0 8px 32px 0 #00fff099" }}
@@ -52,10 +87,10 @@ function AIBox({ title, desc, color, icon, cta, badge }: any) {
 // --- DASHBOARD PAGE ---
 export default function DashboardPage() {
     // State'ler
-    const [folders, setFolders] = useState<any[]>([]);
+    const [folders, setFolders] = useState<Folder[]>([]);
     const [activeFolderId, setActiveFolderId] = useState<number | null>(null);
-    const [notes, setNotes] = useState<any[]>([]);
-    const [activeNote, setActiveNote] = useState<any | null>(null);
+    const [notes, setNotes] = useState<Note[]>([]);
+    const [activeNote, setActiveNote] = useState<Note | null>(null);
 
     // Folder State
     const [showAddFolder, setShowAddFolder] = useState(false);
@@ -205,12 +240,21 @@ export default function DashboardPage() {
             body: JSON.stringify({ title: editNoteTitle, content: editNoteContent }),
         });
         if (res.ok) {
-            setNotes((prev) => prev.map(n => n.id === noteId ? { ...n, title: editNoteTitle, content: editNoteContent } : n));
+            setNotes((prev) =>
+                prev.map(n =>
+                    n.id === noteId ? { ...n, title: editNoteTitle, content: editNoteContent } : n
+                )
+            );
             setEditNoteId(null);
-            setActiveNote((prev: { id: number; }) => prev?.id === noteId ? { ...prev, title: editNoteTitle, content: editNoteContent } : prev);
+            setActiveNote((prev: Note | null) =>
+                prev && prev.id === noteId
+                    ? { ...prev, title: editNoteTitle, content: editNoteContent }
+                    : prev
+            );
         }
         setLoading(false);
     };
+
 
 
     // Çıkış işlemi

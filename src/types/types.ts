@@ -28,6 +28,7 @@ export interface FileModel {
 export interface UploadedFile {
     id: number;
     filename: string;
+    filetype: string;
     title?: string;
     type: string;
     filepath: string;
