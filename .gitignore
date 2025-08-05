@@ -19,9 +19,12 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
+Thumbs.db
+__MACOSX/
 *.pem
 
 # debug
@@ -29,9 +32,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*.log
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files (only example stays)
+.env
+.env.*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +45,30 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE/editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Qodana (JetBrains code quality)
+qodana.yaml
+
+# Git
+.git/
+.gitignore
+
+# System
+ehthumbs.db
+
+# Swap/Temp
+*.swp
+*~
+
+# Optional: E2E / Playwright / Cypress outputs
+playwright-report/
+cypress/videos/
+cypress/screenshots/
