@@ -48,7 +48,7 @@ export default function LandingPage() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
-            body: JSON.stringify({ email: "demo@neurodraft.com", password: "demodraft" }),
+            body: JSON.stringify({ email: "demo@neurodrafts.com", password: "demodraft" }),
         });
         setLoading(false);
         if (res.ok) {
@@ -201,9 +201,9 @@ export default function LandingPage() {
         <div className="min-h-screen bg-[#18181b] text-white font-sans flex flex-col">
             {/* HERO */}
             <section className="w-full flex flex-col items-center justify-center py-20 px-3 bg-gradient-to-br from-[#18181b] via-[#222a38] to-[#101013]">
-                <Image src="/logo.png" alt="NeuroDraft Logo" width={110} height={110} className="mx-auto mb-6 drop-shadow-[0_8px_32px_rgba(40,200,255,0.45)]" priority />
+                <Image src="/logo.png" alt="NeuroDrafts Logo" width={110} height={110} className="mx-auto mb-6 drop-shadow-[0_8px_32px_rgba(40,200,255,0.45)]" priority />
                 <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, type: "spring" }} className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-[#8B5CF6] via-[#06B6D4] to-[#00fff0] bg-clip-text text-transparent mb-4 text-center">
-                    NeuroDraft ile Akıllı Not Yönetimi
+                    NeuroDrafts ile Akıllı Not Yönetimi
                 </motion.h1>
                 <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="max-w-2xl text-lg text-gray-300 text-center mb-10">
                     Yapay zekâ destekli, modern ve hızlı SaaS platformu.<br />
@@ -322,7 +322,7 @@ export default function LandingPage() {
             <section className="py-20 bg-[#18181b]">
                 <div className="max-w-5xl mx-auto px-4">
                     <h2 className="text-2xl md:text-3xl font-bold text-center mb-10 bg-gradient-to-r from-[#8B5CF6] to-[#00fff0] bg-clip-text text-transparent">
-                        NeuroDraft Neler Sunar?
+                        NeuroDrafts Neler Sunar?
                     </h2>
                     <div className="grid md:grid-cols-3 gap-8">
                         {/* 1. AI ile Akıllı Özetleme */}
@@ -374,7 +374,7 @@ export default function LandingPage() {
 
             {/* Footer */}
             <footer className="py-8 text-center text-gray-500 text-sm bg-[#18181b] border-t border-[#232338]">
-                NeuroDraft © {new Date().getFullYear()} | “Your Brain, Your Notes”
+                NeuroDrafts © {new Date().getFullYear()} | “Your Brain, Your Notes”
             </footer>
         </div>
     );

@@ -283,7 +283,7 @@ export default function DashboardPage() {
             <header className="flex items-center justify-between px-7 py-5 bg-[#232338] shadow">
                 <div className="flex items-center gap-3">
                     <Image src="/logo.png" alt="Logo" width={42} height={42} className="rounded-lg" />
-                    <span className={`text-2xl font-extrabold bg-gradient-to-r ${themeGradient} bg-clip-text text-transparent`}>NeuroDraft</span>
+                    <span className={`text-2xl font-extrabold bg-gradient-to-r ${themeGradient} bg-clip-text text-transparent`}>NeuroDrafts</span>
                 </div>
                 <div className="flex items-center gap-4">
                     <User className="text-[#8B5CF6] w-7 h-7" />

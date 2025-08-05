@@ -14,6 +14,7 @@ import AIPanel from "@/components/dashboard/AIPanel";
 import CustomButton from "@/components/ui/CustomButton";
 import Modal from "@/components/modal";
 import { Folder, Note, UploadedFile } from "@/types/types";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 async function apiFetch(url: string, options: RequestInit = {}) {
     return fetch(url, {
@@ -197,7 +198,7 @@ export default function DashboardPage() {
             <header className="flex items-center justify-between px-6 md:px-12 py-4 bg-[#232338] shadow">
                 <div className="flex items-center gap-3">
                     <Image src="/logo.png" alt="Logo" width={40} height={40} className="rounded-lg" />
-                    <span className={`text-xl md:text-2xl font-extrabold bg-gradient-to-r ${themeGradient} bg-clip-text text-transparent`}>NeuroDraft</span>
+                    <span className={`text-xl md:text-2xl font-extrabold bg-gradient-to-r ${themeGradient} bg-clip-text text-transparent`}>NeuroDrafts</span>
                 </div>
                 <div className="flex items-center gap-4">
                     <User className="text-[#8B5CF6] w-7 h-7" />
@@ -347,5 +348,8 @@ export default function DashboardPage() {
                 </Modal>
             )}
         </div>
+
     );
 }
+<SpeedInsights/>
+

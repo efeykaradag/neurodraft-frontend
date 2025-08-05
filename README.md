@@ -1,10 +1,10 @@
-# NeuroDraft Frontend
+# NeuroDrafts Frontend
 
-![NeuroDraft](public/logo.png)
+![NeuroDrafts](public/logo.png)
 
 ## 🚀 Overview
 
-NeuroDraft, yapay zeka destekli, klasör-temelli not alma ve dosya yönetimi sağlayan modern bir SaaS platformudur.  
+NeuroDrafts, yapay zeka destekli, klasör-temelli not alma ve dosya yönetimi sağlayan modern bir SaaS platformudur.  
 Frontend uygulaması, React/Next.js, TypeScript ve Tailwind CSS kullanılarak geliştirilmiştir.
 
 ---

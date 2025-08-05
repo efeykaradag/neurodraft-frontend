@@ -29,7 +29,7 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen bg-[#18181b] flex items-center justify-center">
             <form onSubmit={handleLogin} className="bg-[#232338] p-8 rounded-2xl shadow-xl w-full max-w-sm flex flex-col gap-5">
-                <h2 className="text-2xl font-extrabold text-center bg-gradient-to-r from-[#8B5CF6] to-[#00fff0] bg-clip-text text-transparent mb-2">NeuroDraft Giriş</h2>
+                <h2 className="text-2xl font-extrabold text-center bg-gradient-to-r from-[#8B5CF6] to-[#00fff0] bg-clip-text text-transparent mb-2">NeuroDrafts Giriş</h2>
                 <input
                     type="email"
                     placeholder="Email"

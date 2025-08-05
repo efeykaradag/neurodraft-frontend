@@ -1,6 +1,6 @@
 import { Note } from "@/types/types";
 import ReactMarkdown from "react-markdown";
-import { Edit3, Trash2, FileText, Bot, X } from "lucide-react";
+import { Edit3, Trash2, FileText, Bot} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
