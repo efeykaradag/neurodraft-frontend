@@ -1,7 +1,20 @@
-import type { NextConfig } from "next";
+// next.config.js
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    async headers() {
+        return [
+            {
+                source: "/(.*)", // Tüm sayfalar için
+                headers: [
+                    {
+                        key: "Content-Security-Policy",
+                        value: "script-src 'self'; object-src 'none';", // Temel CSP örneği
+                    },
+                ],
+            },
+        ];
+    },
 };
 
 export default nextConfig;
-
