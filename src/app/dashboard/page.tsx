@@ -15,6 +15,7 @@ import CustomButton from "@/components/ui/CustomButton";
 import Modal from "@/components/modal";
 import { Folder, Note, UploadedFile } from "@/types/types";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import DemoTimer from "@/components/DemoTimer";
 
 async function apiFetch(url: string, options: RequestInit = {}) {
     return fetch(url, {
@@ -194,6 +195,7 @@ export default function DashboardPage() {
     // --- RENDER ---
     return (
         <div className="w-full min-h-screen flex flex-col bg-[#18181b]">
+            <DemoTimer />
             {/* HEADER */}
             <header className="flex items-center justify-between px-6 md:px-12 py-4 bg-[#232338] shadow">
                 <div className="flex items-center gap-3">

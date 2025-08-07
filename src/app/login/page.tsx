@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import {router} from "next/client";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -55,6 +56,12 @@ export default function LoginPage() {
                     Giriş Yap
                 </button>
             </form>
+            <button
+                onClick={() => router.push("/")}
+                className="mt-6 mb-4 px-6 py-2 rounded-xl bg-gradient-to-r from-[#8B5CF6] via-[#06B6D4] to-[#00fff0] text-white font-bold shadow-md hover:scale-105 transition"
+            >
+                Ana Sayfaya Dön
+            </button>
         </div>
     );
 }

@@ -1,5 +1,5 @@
 'use client';
-
+import Footer from "@/components/Footer";
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -24,6 +24,8 @@ export default function LandingPage() {
     const [regPass, setRegPass] = useState("");
     const [regCode, setRegCode] = useState("");
     const [canResend, setCanResend] = useState(false);
+    const [termsAccepted, setTermsAccepted] = useState(false);
+
 
     // Login state
     const [logEmail, setLogEmail] = useState("");
@@ -44,20 +46,25 @@ export default function LandingPage() {
     // Demo Login
     const handleDemoLogin = async () => {
         setLoading(true); setError(""); setMsg("");
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/demo-login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            credentials: "include",
-            body: JSON.stringify({ email: "demo@neurodrafts.com", password: "demodraft" }),
         });
         setLoading(false);
+
+        const data = await res.json();
+
         if (res.ok) {
-            setMsg("Demo giriş başarılı, yönlendiriliyorsunuz...");
+            setMsg("Demo başlatıldı! Yönlendiriliyorsunuz...");
+            // expires_at bilgisini localStorage veya state'e yaz (timer için)
+            if (data.expires_at) {
+                localStorage.setItem("demoExpiresAt", data.expires_at);
+            }
             setTimeout(() => {
                 window.location.href = "/dashboard";
             }, 800);
         } else {
-            setError("Demo hesabı kullanılamıyor. Lütfen kaydolun!");
+            setError(data.detail || "Demo başlatılamadı. Lütfen daha sonra tekrar deneyin.");
         }
     };
 
@@ -76,7 +83,9 @@ export default function LandingPage() {
             body: JSON.stringify({
                 email: regEmail,
                 full_name: regName,
-                password: regPass
+                password: regPass,
+                termsAccepted,
+                termsAcceptedAt: new Date().toISOString()
             })
         });
         setLoading(false);
@@ -148,7 +157,13 @@ export default function LandingPage() {
                 window.location.href = "/dashboard";
             }, 800);
         } else {
-            setError("E-mail veya şifre hatalı!");
+            let errorMsg = "E-mail veya şifre hatalı!";
+            try {
+                const d = await res.json();
+                // Backend belirli bir mesaj döndüyse onu kullan:
+                if (d.detail) errorMsg = d.detail;
+            } catch { }
+            setError(errorMsg);
         }
     };
 
@@ -253,6 +268,23 @@ export default function LandingPage() {
                                 <div className="relative">
                                     <Lock className="absolute left-3 top-3 text-[#8B5CF6]" size={20} />
                                     <input type="password" value={regPass} autoComplete="new-password" onChange={e => setRegPass(e.target.value)} placeholder="Şifre (min 8 karakter)" className="bg-[#1a1a23] text-white pl-10 p-3 w-full rounded-xl focus:ring-2 focus:ring-[#8B5CF6]" required aria-label="Şifre" />
+                                </div>
+                                <div className="flex items-center gap-3 mt-2">
+                                    <input
+                                        id="terms"
+                                        type="checkbox"
+                                        checked={termsAccepted}
+                                        onChange={e => setTermsAccepted(e.target.checked)}
+                                        required
+                                        className="peer shrink-0 w-5 h-5 border-2 border-[#8B5CF6] rounded-md appearance-none bg-[#191927] checked:bg-gradient-to-tr checked:from-[#8B5CF6] checked:to-[#06B6D4] checked:border-[#06B6D4] transition-all ring-0 focus:outline-none focus:ring-2 focus:ring-cyan-400 shadow-lg checked:shadow-[0_0_10px_2px_#00fff066]"
+                                    />
+                                    <label
+                                        htmlFor="terms"
+                                        className="text-sm text-gray-300 peer-checked:text-[#8B5CF6] select-none cursor-pointer"
+                                    >
+                                        <a href="/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#06B6D4] transition">Kullanım Koşulları</a> ve{" "}
+                                        <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#8B5CF6] transition">Gizlilik Politikası</a>’nı okudum ve kabul ediyorum.
+                                    </label>
                                 </div>
                                 <motion.button whileTap={{ scale: 0.97 }} disabled={loading} type="submit" className="bg-gradient-to-r from-[#8B5CF6] via-[#06B6D4] to-[#00fff0] text-white font-bold py-3 rounded-xl transition text-lg mt-2 shadow-lg">{loading ? "Kayıt..." : "Kayıt Ol"}</motion.button>
                             </motion.form>
@@ -371,11 +403,7 @@ export default function LandingPage() {
                     Kayıt Ol
                 </button>
             </section>
-
-            {/* Footer */}
-            <footer className="py-8 text-center text-gray-500 text-sm bg-[#18181b] border-t border-[#232338]">
-                NeuroDrafts © {new Date().getFullYear()} | “Your Brain, Your Notes”
-            </footer>
+            <Footer />
         </div>
     );
 }
